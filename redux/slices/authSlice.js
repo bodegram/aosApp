@@ -1,12 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import Axios from 'axios'
+
+const axios = Axios.create({
+   baseURL: '',
+}
+)
 
 
-const loginAsync = createAsyncThunk('auth/loginAsync', (credential, {dispatch, rejectedWithValue})=>{
+export const loginAsync = createAsyncThunk('auth/loginAsync', async (credential, {dispatch, rejectedWithValue})=>{
       try{
+         dispatch(getLoginRequest())
+         const {data} = await axios.post('api/login', credential)
+         
+         
+         
+         
 
       }
       catch(error){
         return rejectedWithValue('Login Failed')
+      }
+
+      finally{
+         dispatch(clearError())
       }
 })
 
@@ -36,8 +52,15 @@ export const authSlice = createSlice({
          clearError: (state, action)=>{
             state.message = ''
             state.error = false
-         }
+            state.loading = false
+         },
+         getLogoutSuccess: (state, action)=>{
+            state.loading = false
+            state.isAuthenticated = false
+            
+         },
+        
     }
 })
 
-export const {getLoginRequest, getLoginSuccess, getLoginFail, clearError} = authSlice.actions
+export const {getLoginRequest, getLoginSuccess, getLoginFail, clearError, getLogoutSuccess} = authSlice.actions

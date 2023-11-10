@@ -4,6 +4,7 @@ import Register from '../screens/auth/Register';
 import ForgetPassword from '../screens/auth/ForgetPassword';
 import { View, Text } from 'react-native';
 import {useNavigation} from '@react-navigation/native'
+import AppIntro from '../screens/auth/AppIntro';
 
 
 
@@ -18,8 +19,9 @@ const HeaderLeft = () =>{
   return ''
 }
   return (
-    <Stack.Navigator initialRouteName='Login'>
-      <Stack.Screen name="Login" component={Login} options={{headerTitle: ()=><HeaderLeft/>, headerShadowVisible: false }}/>
+    <Stack.Navigator initialRouteName='Welcome'>
+      <Stack.Screen name="Welcome" component={AppIntro}  options={{headerShown: false}}/>
+      <Stack.Screen name="Login" component={Login} options={{headerTitle: ()=> <HeaderLeft/>, headerShadowVisible: false }}/>
       <Stack.Screen name="Register" component={Register}  options={{headerTitle: ()=><HeaderLeft/>, headerShadowVisible: false }} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword}  options={{headerTitle: ()=><HeaderLeft/>, headerShadowVisible: false }} />
     </Stack.Navigator>
